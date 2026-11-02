@@ -48,7 +48,7 @@ regp.then(function(reg){
   reg.pushManager.getSubscription().then(function(sub){
     var on = state(sub);
     if(standalone){
-      if(on || ls("stgSkip") || Notification.permission!=="default"){ $("msg").textContent="Opening today's listsÃ¢â‚¬Â¦"; go() }
+      if(on || ls("stgSkip") || Notification.permission!=="default"){ $("msg").textContent="Opening today's listsâ€¦"; go() }
       else { $("msg").textContent="Get one alert a day when the lists are ready?"; $("go").textContent="Skip for now"; $("go").onclick=function(e){ls("stgSkip","1")} }
     }
   })

@@ -13,7 +13,7 @@ const { subs } = await call("a=subs");
 console.log("subscribers", subs.length);
 const payload = JSON.stringify({
   title: "Midday lists are ready",
-  body: `${st.upFresh} fresh uptrend Ã‚Â· ${st.downFresh} fresh downtrend`,
+  body: `${st.upFresh} fresh uptrend · ${st.downFresh} fresh downtrend`,
 });
 const gone = [];
 let ok = 0;
