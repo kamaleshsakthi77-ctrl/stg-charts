@@ -21,6 +21,8 @@ button.ghost,a.ghost{background:none;color:#9fb3c8;font-weight:500;font-size:14p
 <img src="icon-192.png" alt="STG">
 <h1>Swing Trading Guide</h1>
 <p id="msg">Install this app for one-tap access to today's lists.</p>
+<p id="dg" hidden></p>
+<button id="set" class="ghost" hidden>Alert settings</button>
 <button id="inst" hidden>Install app</button>
 <button id="al" hidden>Turn on daily alerts</button>
 <a id="go" href="https://script.google.com/macros/s/AKfycbxkRSULWATLQwxj0GhB_3SXFuANh6-yzJfJs0V6xSLYn2qM8PoILXMppeP_xfqtrLSr/exec" target="_top">Open the lists</a>
@@ -48,7 +50,11 @@ regp.then(function(reg){
   reg.pushManager.getSubscription().then(function(sub){
     var on = state(sub);
     if(standalone){
-      if(on || ls("stgSkip") || Notification.permission!=="default"){ $("msg").textContent="Opening today's listsâ€¦"; go() }
+      if(on || ls("stgSkip") || Notification.permission!=="default"){
+        $("msg").textContent="Opening today's lists..."; $("dg").textContent="Alerts: "+(on?"on":"off")+" | permission: "+Notification.permission; $("dg").hidden=false; $("set").hidden=false;
+        var tm=setTimeout(go,3500);
+        $("set").onclick=function(){clearTimeout(tm);$("msg").textContent="Alert settings";$("set").hidden=true;$("al").hidden=false;$("al").disabled=false;$("al").textContent="Turn on / refresh alerts";$("go").textContent="Open the lists";$("off").hidden=!on}
+      }
       else { $("msg").textContent="Get one alert a day when the lists are ready?"; $("go").textContent="Skip for now"; $("go").onclick=function(e){ls("stgSkip","1")} }
     }
   })
@@ -57,7 +63,7 @@ $("al").onclick=function(){
   $("al").disabled=true;
   Notification.requestPermission().then(function(p){
     if(p!=="granted"){state(null);$("al").disabled=false;return}
-    return regp.then(function(reg){return reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(KEY)})})
+    return regp.then(function(reg){return reg.pushManager.getSubscription().then(function(old){return old?old.unsubscribe().then(function(){return post({action:"unsub",endpoint:old.endpoint})}):null}).then(function(){return reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(KEY)})})})
       .then(function(sub){return post({action:"sub",sub:sub.toJSON()}).then(function(){ls("stgAsked","1");state(sub);if(standalone)setTimeout(go,1800)})})
   }).catch(function(){$("msg").textContent="Could not turn on alerts. Please try again.";$("al").disabled=false})};
 $("off").onclick=function(){regp.then(function(reg){return reg.pushManager.getSubscription()}).then(function(sub){
