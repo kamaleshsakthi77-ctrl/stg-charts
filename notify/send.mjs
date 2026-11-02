@@ -13,7 +13,7 @@ const { subs } = await call("a=subs");
 console.log("subscribers", subs.length);
 const payload = JSON.stringify({
   title: "Today's lists are ready",
-  body: `${st.upFresh} fresh uptrend · ${st.downFresh} fresh downtrend`,
+  body: `${st.upFresh} fresh uptrend Â· ${st.downFresh} fresh downtrend`,
 });
 const gone = [];
 let ok = 0;
@@ -23,4 +23,4 @@ for (const s of subs) {
 }
 console.log(`sent ${ok}, expired ${gone.length}`);
 if (gone.length) await call("a=prune&e=" + encodeURIComponent(gone.join(",")));
-if (ok > 0 || subs.length === 0) await call("a=mark&day=" + encodeURIComponent(st.day));
+if (ok > 0) await call("a=mark&day=" + encodeURIComponent(st.day));
