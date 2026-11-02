@@ -1,0 +1,25 @@
+name: Daily alert
+on:
+  schedule:
+    - cron: "30 11 * * 1-5"   # 17:00 IST, Monday to Friday
+    - cron: "30 13 * * 1-5"   # 19:00 IST, second chance if the lists were not built yet
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Send even if today's alert already went out"
+        default: "false"
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install --no-audit --no-fund
+      - run: node notify/send.mjs
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          VAPID_PUBLIC: ${{ secrets.VAPID_PUBLIC }}
+          VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
+          FORCE: ${{ github.event.inputs.force }}
