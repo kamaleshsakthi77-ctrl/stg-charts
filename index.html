@@ -13,14 +13,21 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
 img{width:96px;height:96px;border-radius:22px;animation:p 1.6s ease-in-out infinite}
 @keyframes p{50%{transform:scale(1.06)}}
 h1{font-size:20px;margin:0}p{margin:0;color:#9fb3c8;font-size:14px}
-a{background:#2E8B98;color:#fff;text-decoration:none;padding:12px 22px;border-radius:12px;font-weight:600}
+button,a{border:0;font-size:16px;cursor:pointer;background:#2E8B98;color:#fff;text-decoration:none;padding:12px 22px;border-radius:12px;font-weight:600}
 @media (prefers-reduced-motion:reduce){img{animation:none}}
 </style></head><body>
 <img src="icon-192.png" alt="STG">
 <h1>Swing Trading Guide</h1>
-<p>Opening today's lists…</p>
+<p id="msg">Install this app for one-tap access to today's lists.</p>
+<button id="inst" hidden>Install app</button>
 <a id="go" href="https://script.google.com/macros/s/AKfycbxkRSULWATLQwxj0GhB_3SXFuANh6-yzJfJs0V6xSLYn2qM8PoILXMppeP_xfqtrLSr/exec" target="_top">Open the lists</a>
+<p id="ios" hidden>iPhone: tap Share, then Add to Home Screen.</p>
 <script>
+var X="https://script.google.com/macros/s/AKfycbxkRSULWATLQwxj0GhB_3SXFuANh6-yzJfJs0V6xSLYn2qM8PoILXMppeP_xfqtrLSr/exec", dp;
+var standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function(){});
-setTimeout(function(){ location.replace("https://script.google.com/macros/s/AKfycbxkRSULWATLQwxj0GhB_3SXFuANh6-yzJfJs0V6xSLYn2qM8PoILXMppeP_xfqtrLSr/exec"); }, 900);
+if (standalone) { document.getElementById("msg").textContent="Opening today's lists…"; location.replace(X); }
+addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); dp=e; var b=document.getElementById("inst"); b.hidden=false;
+  b.onclick=function(){ dp.prompt(); dp.userChoice.then(function(){ b.hidden=true; }); }; });
+if (/iphone|ipad/i.test(navigator.userAgent) && !standalone) document.getElementById("ios").hidden=false;
 </script></body></html>
