@@ -12,8 +12,8 @@ if (st.sent === st.day && FORCE !== "true") { console.log("Already sent today.")
 const { subs } = await call("a=subs");
 console.log("subscribers", subs.length);
 const payload = JSON.stringify({
-  title: "Today's lists are ready",
-  body: `${st.upFresh} fresh uptrend Â· ${st.downFresh} fresh downtrend`,
+  title: "Midday lists are ready",
+  body: `${st.upFresh} fresh uptrend Ã‚Â· ${st.downFresh} fresh downtrend`,
 });
 const gone = [];
 let ok = 0;

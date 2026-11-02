@@ -1,8 +1,9 @@
 name: Daily alert
 on:
   schedule:
-    - cron: "30 11 * * 1-5"   # 17:00 IST, Monday to Friday
-    - cron: "30 13 * * 1-5"   # 19:00 IST, second chance if the lists were not built yet
+    - cron: "30 7 * * 1-5"    # 13:00 IST, Monday to Friday
+    - cron: "0 8 * * 1-5"     # 13:30 IST, retry if the lists were not built yet
+    - cron: "30 8 * * 1-5"    # 14:00 IST, last retry
   workflow_dispatch:
     inputs:
       force:
