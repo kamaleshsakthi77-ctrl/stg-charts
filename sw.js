@@ -1,5 +1,5 @@
-const C = "stg-v2";
-const OPEN = "https://script.google.com/macros/s/AKfycbxkRSULWATLQwxj0GhB_3SXFuANh6-yzJfJs0V6xSLYn2qM8PoILXMppeP_xfqtrLSr/exec";
+const C = "stg-v3";
+const OPEN = self.registration.scope;   // the app's own start page (in scope, so Android opens the installed app); it forwards to the lists
 self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(C).then(c => c.addAll(["./", "icon-192.png"]))); });
 self.addEventListener("activate", e => e.waitUntil(self.clients.claim()));
 self.addEventListener("fetch", e => {
