@@ -4,10 +4,13 @@ on:
     - cron: "30 7 * * 1-5"    # 13:00 IST, Monday to Friday
     - cron: "0 8 * * 1-5"     # 13:30 IST, retry if the lists were not built yet
     - cron: "30 8 * * 1-5"    # 14:00 IST, last retry
+    - cron: "30 13 * * 1-5"   # 19:00 IST, Monday to Friday
+    - cron: "0 14 * * 1-5"    # 19:30 IST, retry
+    - cron: "30 14 * * 1-5"   # 20:00 IST, last retry
   workflow_dispatch:
     inputs:
       force:
-        description: "Send even if today's alert already went out"
+        description: "Send even if this time's alert already went out"
         default: "false"
 jobs:
   send:

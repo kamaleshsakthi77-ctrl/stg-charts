@@ -41,7 +41,7 @@ function state(sub){
   var on = !!sub && Notification.permission==="granted";
   $("al").hidden = !can || on || Notification.permission==="denied" || (ios && !standalone);
   $("off").hidden = !on;
-  if(on) $("msg").textContent="Daily alerts are on. You will get one note when the lists are ready.";
+  if(on) $("msg").textContent="Daily alerts are on. You will get two notes a day, at 1 pm and 7 pm, when the lists are ready.";
   else if(can && Notification.permission==="denied") $("msg").textContent="Alerts are blocked in this browser's settings.";
   return on}
 function go(){location.replace(X)}
@@ -55,7 +55,7 @@ regp.then(function(reg){
         var tm=setTimeout(go,3500);
         $("set").onclick=function(){clearTimeout(tm);$("msg").textContent="Alert settings";$("set").hidden=true;$("al").hidden=false;$("al").disabled=false;$("al").textContent="Turn on / refresh alerts";$("go").textContent="Open the lists";$("off").hidden=!on}
       }
-      else { $("msg").textContent="Get one alert a day when the lists are ready?"; $("go").textContent="Skip for now"; $("go").onclick=function(e){ls("stgSkip","1")} }
+      else { $("msg").textContent="Get two alerts a day (1 pm and 7 pm) when the lists are ready?"; $("go").textContent="Skip for now"; $("go").onclick=function(e){ls("stgSkip","1")} }
     }
   })
 });

@@ -10,7 +10,7 @@ self.addEventListener("push", e => {
   let d = {};
   try { d = e.data ? e.data.json() : {}; } catch (x) { /* plain text or empty */ }
   e.waitUntil(self.registration.showNotification(d.title || "Swing Trading Guide", {
-    body: d.body || "Today's lists are ready.", icon: "icon-192.png", badge: "icon-192.png", tag: "stg-daily", renotify: false, data: { url: OPEN },
+    body: d.body || "Today's lists are ready.", icon: "icon-192.png", badge: "icon-192.png", tag: d.tag || "stg-daily", renotify: false, data: { url: OPEN },
   }));
 });
 self.addEventListener("notificationclick", e => {
