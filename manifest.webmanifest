@@ -1,6 +1,6 @@
-{
+﻿{
   "name": "Swing Trading Guide",
-  "short_name": "STG Charts",
+  "short_name": "Swing Trading Guide",
   "description": "Daily NSE swing-trading lists with one-tap TradingView charts.",
   "start_url": "./",
   "scope": "./",
