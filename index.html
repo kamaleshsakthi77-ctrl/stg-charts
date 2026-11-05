@@ -36,6 +36,12 @@ var can = "serviceWorker" in navigator && "PushManager" in window && "Notificati
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
 function b64(s){var p="=".repeat((4-s.length%4)%4),b=(s+p).replace(/-/g,"+").replace(/_/g,"/"),r=atob(b),o=new Uint8Array(r.length);for(var i=0;i<r.length;i++)o[i]=r.charCodeAt(i);return o}
 function post(o){return fetch(API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(o)})}
+var KEY=(location.search.match(/[?&]k=([0-9a-f]{32})/)||[])[1]||ls("stgKey")||"";
+if(KEY){ls("stgKey",KEY);X=X+"?k="+KEY;$("go").href=X;
+  try{var mf=JSON.parse(JSON.stringify({name:"Swing Trading Guide",short_name:"Swing Trading Guide",start_url:"./?k="+KEY,scope:"./",display:"standalone",orientation:"portrait",background_color:"#0B1F3A",theme_color:"#0B1F3A",
+    icons:[{src:new URL("icon-192.png",location.href).href,sizes:"192x192",type:"image/png",purpose:"any"},{src:new URL("icon-512.png",location.href).href,sizes:"512x512",type:"image/png",purpose:"any"},{src:new URL("icon-512.png",location.href).href,sizes:"512x512",type:"image/png",purpose:"maskable"}]}));
+    document.querySelector('link[rel=manifest]').href=URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:"application/manifest+json"}))}catch(e){}
+}else{$("msg").textContent="Open your personal Swing Trading Guide link once to set up this app.";$("go").hidden=true}
 var regp = "serviceWorker" in navigator ? navigator.serviceWorker.register("sw.js").then(function(){return navigator.serviceWorker.ready}) : Promise.resolve(null);
 function state(sub){
   var on = !!sub && Notification.permission==="granted";
