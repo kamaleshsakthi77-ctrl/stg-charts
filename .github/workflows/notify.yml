@@ -1,9 +1,13 @@
 name: Daily alert
 on:
   schedule:
+    - cron: "30 5 * * 1-5"    # 11:00 IST, market check-in
+    - cron: "0 6 * * 1-5"     # 11:30 IST, retry
     - cron: "30 7 * * 1-5"    # 13:00 IST, Monday to Friday
     - cron: "0 8 * * 1-5"     # 13:30 IST, retry if the lists were not built yet
     - cron: "30 8 * * 1-5"    # 14:00 IST, last retry
+    - cron: "30 9 * * 1-5"    # 15:00 IST, last hour reminder
+    - cron: "0 10 * * 1-5"    # 15:30 IST, retry
     - cron: "30 13 * * 1-5"   # 19:00 IST, Monday to Friday
     - cron: "0 14 * * 1-5"    # 19:30 IST, retry
     - cron: "30 14 * * 1-5"   # 20:00 IST, last retry
