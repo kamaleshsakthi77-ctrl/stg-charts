@@ -20,7 +20,7 @@ const { subs } = await call("a=subs");
 console.log("subscribers", subs.length);
 const payload = JSON.stringify({
   title: slot === "1pm" ? "Midday lists are ready" : "Evening lists are ready",
-  body: `${st.upFresh} fresh uptrend · ${st.downFresh} fresh downtrend`,
+  body: `${st.upFresh} new in uptrend list · ${st.downFresh} new in downtrend list. Education only, not advice.`,
   tag: `stg-${slot}`,
 });
 const gone = [];
